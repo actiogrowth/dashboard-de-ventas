@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Dashboard Veranito 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -22,115 +22,178 @@
   }
   body { font-family: 'Poppins', sans-serif; background: var(--fondo); color: var(--gris1); min-height: 100vh; }
 
-  /* HEADER */
-  .dash-header { background: var(--blanco); border-bottom: 1.5px solid var(--gris3); padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-  .dash-header-left { display: flex; align-items: center; gap: 14px; }
-  .dash-logo { height: 40px; }
-  .dash-title { color: var(--negro); font-size: 18px; font-weight: 700; }
-  .dash-title span { color: var(--naranja); }
-  .dash-badge { background: var(--azul); color: #fff; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.08em; }
-  .dash-updated { font-size: 11px; color: var(--gris2); margin-top: 4px; }
+  /* HEADER — solo logo + badge */
+  .dash-header {
+    background: var(--blanco);
+    border-bottom: 1.5px solid var(--gris3);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .dash-logo { height: 36px; max-width: 160px; object-fit: contain; }
+  .dash-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  .dash-badge { background: var(--azul); color: #fff; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+  .dash-updated { font-size: 10px; color: var(--gris2); text-align: right; }
 
-  .dash-main { max-width: 1160px; margin: 0 auto; padding: 32px 20px 60px; }
+  /* TÍTULO — fuera del header, dentro del main */
+  .dash-page-title {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1.5px solid var(--gris3);
+  }
+  .dash-page-title h1 { font-size: 24px; font-weight: 800; color: var(--negro); letter-spacing: -0.02em; line-height: 1.2; }
+  .dash-page-title h1 span { color: var(--naranja); }
+  .dash-page-title p { font-size: 12px; color: var(--gris2); margin-top: 4px; }
+
+  @media (max-width: 480px) {
+    .dash-page-title h1 { font-size: 20px; }
+  }
+
+  .dash-main { max-width: 1160px; margin: 0 auto; padding: 24px 16px 60px; }
 
   /* NAVEGACIÓN */
-  .dash-nav { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; align-items: center; }
-  .dash-nav-btn {
-    padding: 8px 20px; border-radius: 10px; font-family: 'Poppins', sans-serif;
-    font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--gris3);
-    background: var(--blanco); color: var(--gris2); transition: all 0.2s;
+  .dash-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    align-items: center;
   }
-  .dash-nav-btn:hover { border-color: var(--azul); color: var(--azul); }
+  .dash-nav-btn {
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid var(--gris3);
+    background: var(--blanco);
+    color: var(--gris2);
+    transition: all 0.2s;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .dash-nav-btn:hover  { border-color: var(--azul); color: var(--azul); }
   .dash-nav-btn.active { background: var(--azul); color: #fff; border-color: var(--azul); }
-  .dash-nav-btn.anual { border-color: var(--naranja); color: var(--naranja); }
+  .dash-nav-btn.anual  { border-color: var(--naranja); color: var(--naranja); }
   .dash-nav-btn.anual.active { background: var(--naranja); color: #fff; }
-  .dash-nav-sep { width: 1px; height: 28px; background: var(--gris3); margin: 0 4px; }
+  .dash-nav-sep  { width: 1px; height: 28px; background: var(--gris3); margin: 0 2px; }
   .dash-nav-loading { font-size: 12px; color: var(--gris2); }
 
+  @media (max-width: 480px) {
+    .dash-nav { gap: 6px; }
+    .dash-nav-btn { font-size: 12px; padding: 7px 12px; }
+    .dash-nav-sep { display: none; }
+  }
+
   /* MES LABEL */
-  .dash-mes-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-  .dash-mes-label { font-size: 22px; font-weight: 800; color: var(--negro); letter-spacing: -0.02em; }
+  .dash-mes-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 8px; }
+  .dash-mes-label { font-size: 20px; font-weight: 800; color: var(--negro); letter-spacing: -0.02em; }
   .dash-mes-label span { color: var(--azul); }
   .dash-mes-label span.anual { color: var(--naranja); }
-  .dash-status { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--verde); }
-  .dash-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--verde); animation: pulse 1.5s infinite; }
+  .dash-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: var(--verde); }
+  .dash-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--verde); animation: pulse 1.5s infinite; flex-shrink: 0; }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-  /* KPI GRID */
-  .dash-kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
-  @media (max-width: 700px) { .dash-kpi-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 420px) { .dash-kpi-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) {
+    .dash-mes-label { font-size: 17px; }
+  }
 
-  .dash-kpi { background: var(--blanco); border-radius: 16px; padding: 20px 22px; border: 1.5px solid var(--gris3); position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
-  .dash-kpi:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-  .dash-kpi-accent { position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 16px 0 0 16px; }
-  .dash-kpi-label { font-size: 10px; font-weight: 700; color: var(--gris2); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
-  .dash-kpi-value { font-size: 32px; font-weight: 800; color: var(--negro); line-height: 1; margin-bottom: 6px; letter-spacing: -0.02em; }
-  .dash-kpi-sub { font-size: 11px; color: var(--gris2); font-weight: 500; }
-  .dash-kpi-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-top: 4px; }
-  .dash-kpi-badge.verde { background: #e8faf2; color: #1a9e5c; }
-  .dash-kpi-badge.naranja { background: #fff5e0; color: #cc7700; }
-  .dash-kpi-badge.rojo { background: #fef0f0; color: var(--rojo); }
+  /* KPI GRID */
+  .dash-kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  @media (max-width: 680px) { .dash-kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+  @media (max-width: 360px) { .dash-kpi-grid { grid-template-columns: 1fr; } }
+
+  .dash-kpi {
+    background: var(--blanco);
+    border-radius: 14px;
+    padding: 16px 16px;
+    border: 1.5px solid var(--gris3);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .dash-kpi:active { transform: scale(0.98); }
+  .dash-kpi-accent { position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 14px 0 0 14px; }
+  .dash-kpi-label { font-size: 9px; font-weight: 700; color: var(--gris2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; line-height: 1.3; }
+  .dash-kpi-value { font-size: 26px; font-weight: 800; color: var(--negro); line-height: 1; margin-bottom: 4px; letter-spacing: -0.02em; }
+  .dash-kpi-sub { font-size: 10px; color: var(--gris2); font-weight: 500; line-height: 1.3; }
+
+  @media (max-width: 480px) {
+    .dash-kpi-value { font-size: 22px; }
+    .dash-kpi { padding: 14px 12px; }
+  }
 
   /* SECCIÓN TÍTULO */
-  .dash-section-title { font-size: 11px; font-weight: 700; color: var(--gris2); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; margin-top: 8px; }
+  .dash-section-title { font-size: 10px; font-weight: 700; color: var(--gris2); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; margin-top: 4px; }
 
-  .loading { background: var(--gris3); border-radius: 8px; color: transparent !important; animation: shimmer 1.2s infinite; min-width: 80px; display: inline-block; }
+  .loading { background: var(--gris3); border-radius: 8px; color: transparent !important; animation: shimmer 1.2s infinite; min-width: 60px; display: inline-block; }
   @keyframes shimmer { 0%{opacity:0.5;} 50%{opacity:1;} 100%{opacity:0.5;} }
 
   /* SIN DATOS */
-  .dash-sin-datos { background: var(--blanco); border-radius: 16px; padding: 48px 24px; border: 1.5px solid var(--gris3); text-align: center; margin-bottom: 24px; display: none; }
-  .dash-sin-datos-icon { font-size: 40px; margin-bottom: 12px; }
-  .dash-sin-datos-title { font-size: 16px; font-weight: 700; color: var(--negro); margin-bottom: 6px; }
-  .dash-sin-datos-sub { font-size: 13px; color: var(--gris2); }
+  .dash-sin-datos { background: var(--blanco); border-radius: 14px; padding: 40px 20px; border: 1.5px solid var(--gris3); text-align: center; margin-bottom: 20px; display: none; }
+  .dash-sin-datos-icon { font-size: 36px; margin-bottom: 10px; }
+  .dash-sin-datos-title { font-size: 15px; font-weight: 700; color: var(--negro); margin-bottom: 6px; }
+  .dash-sin-datos-sub { font-size: 12px; color: var(--gris2); }
 
   /* OCUPACIÓN BAR */
-  .dash-ocup-card { background: var(--blanco); border-radius: 16px; padding: 20px 22px; border: 1.5px solid var(--gris3); margin-bottom: 24px; }
-  .dash-ocup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-  .dash-ocup-label { font-size: 10px; font-weight: 700; color: var(--gris2); text-transform: uppercase; letter-spacing: 0.1em; }
-  .dash-ocup-pct { font-size: 28px; font-weight: 800; color: var(--negro); letter-spacing: -0.02em; }
-  .dash-ocup-bar-wrap { background: var(--gris3); border-radius: 8px; height: 12px; overflow: hidden; margin-bottom: 8px; }
+  .dash-ocup-card { background: var(--blanco); border-radius: 14px; padding: 18px 16px; border: 1.5px solid var(--gris3); margin-bottom: 20px; }
+  .dash-ocup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .dash-ocup-label { font-size: 9px; font-weight: 700; color: var(--gris2); text-transform: uppercase; letter-spacing: 0.08em; }
+  .dash-ocup-pct { font-size: 26px; font-weight: 800; color: var(--negro); letter-spacing: -0.02em; }
+  .dash-ocup-bar-wrap { background: var(--gris3); border-radius: 8px; height: 10px; overflow: hidden; margin-bottom: 8px; }
   .dash-ocup-bar { height: 100%; border-radius: 8px; background: var(--azul); transition: width 1s ease; width: 0%; }
-  .dash-ocup-sub { font-size: 11px; color: var(--gris2); }
+  .dash-ocup-sub { font-size: 10px; color: var(--gris2); }
 
   /* COMPARACION */
-  .dash-comp-card { background: var(--blanco); border-radius: 16px; padding: 24px; border: 1.5px solid var(--gris3); margin-bottom: 24px; }
-  .dash-comp-title { font-size: 13px; font-weight: 700; color: var(--negro); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px; }
-  .dash-comp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 500px) { .dash-comp-row { grid-template-columns: 1fr; } }
+  .dash-comp-card { background: var(--blanco); border-radius: 14px; padding: 20px 16px; border: 1.5px solid var(--gris3); margin-bottom: 20px; }
+  .dash-comp-title { font-size: 11px; font-weight: 700; color: var(--negro); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+  .dash-comp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 400px) { .dash-comp-row { grid-template-columns: 1fr; } }
   .dash-comp-item { text-align: center; }
-  .dash-comp-year { font-size: 11px; font-weight: 700; color: var(--gris2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
-  .dash-comp-val { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
-  .dash-comp-bar-wrap { background: var(--gris3); border-radius: 8px; height: 8px; margin: 10px 0 6px; overflow: hidden; }
+  .dash-comp-year { font-size: 10px; font-weight: 700; color: var(--gris2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .dash-comp-val { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+  .dash-comp-bar-wrap { background: var(--gris3); border-radius: 8px; height: 7px; margin: 8px 0 4px; overflow: hidden; }
   .dash-comp-bar { height: 100%; border-radius: 8px; transition: width 1s ease; width: 0%; }
-  .dash-diff-box { border-radius: 12px; padding: 14px 20px; text-align: center; margin-top: 16px; }
+  .dash-diff-box { border-radius: 12px; padding: 12px 16px; text-align: center; margin-top: 14px; }
   .dash-diff-box.positivo { background: #f0faf4; border: 1.5px solid #b7e4c7; }
   .dash-diff-box.negativo { background: #fff0f0; border: 1.5px solid #ffb3b3; }
   .dash-diff-box.sin-ref  { background: #f5f7fa; border: 1.5px solid var(--gris3); }
-  .dash-diff-label { font-size: 12px; color: var(--gris2); font-weight: 500; margin-bottom: 4px; }
-  .dash-diff-val { font-size: 28px; font-weight: 800; }
+  .dash-diff-label { font-size: 11px; color: var(--gris2); font-weight: 500; margin-bottom: 4px; }
+  .dash-diff-val { font-size: 26px; font-weight: 800; }
   .dash-diff-val.positivo { color: var(--verde); }
   .dash-diff-val.negativo { color: var(--rojo); }
   .dash-diff-val.sin-ref  { color: var(--gris2); }
 
-  .dash-error { background: #FCCDCE; color: var(--rojo); border-radius: 10px; padding: 14px 18px; font-size: 13px; font-weight: 600; margin-bottom: 20px; display: none; }
-  .dash-footer { text-align: center; font-size: 11px; color: var(--gris2); margin-top: 40px; }
+  @media (max-width: 480px) {
+    .dash-comp-val { font-size: 20px; }
+    .dash-diff-val { font-size: 22px; }
+  }
+
+  .dash-error { background: #FCCDCE; color: var(--rojo); border-radius: 10px; padding: 12px 16px; font-size: 12px; font-weight: 600; margin-bottom: 16px; display: none; }
+  .dash-footer { text-align: center; font-size: 10px; color: var(--gris2); margin-top: 36px; line-height: 1.6; }
 </style>
 </head>
 <body>
 
+<!-- HEADER — solo logo y badge -->
 <div class="dash-header">
-  <div class="dash-header-left">
-    <img src="https://veranito-vidaenarte.com/wp-content/uploads/2026/04/Logo-Vida-En-Arte.png" class="dash-logo" alt="Logo" onerror="this.style.display='none'">
-    <div class="dash-title">Dashboard <span>Veranito</span> 2026</div>
-  </div>
-  <div>
+  <img src="https://veranito-vidaenarte.com/wp-content/uploads/2026/04/Logo-Vida-En-Arte.png" class="dash-logo" alt="Vida en Arte" onerror="this.style.display='none'">
+  <div class="dash-header-right">
     <div class="dash-badge">En tiempo real</div>
     <div class="dash-updated" id="dash-updated">Actualizando...</div>
   </div>
 </div>
 
 <div class="dash-main">
+
+  <!-- TÍTULO FUERA DEL HEADER -->
+  <div class="dash-page-title">
+    <h1>Dashboard <span>Veranito</span> 2026</h1>
+    <p>Vida en Arte · Panamá</p>
+  </div>
 
   <!-- NAVEGACIÓN DINÁMICA -->
   <div class="dash-nav" id="dash-nav">
@@ -142,7 +205,7 @@
     <div class="dash-status"><div class="dash-status-dot"></div>Datos en vivo</div>
   </div>
 
-  <div class="dash-error" id="dash-error">Error al cargar los datos. Verifica la conexión con Google Sheets.</div>
+  <div class="dash-error" id="dash-error">Error al cargar los datos. Verifica la conexión.</div>
 
   <!-- SIN DATOS -->
   <div class="dash-sin-datos" id="dash-sin-datos">
@@ -164,79 +227,68 @@
       <div class="dash-ocup-sub" id="kpi-ocup-sub">-- de -- cupos vendidos</div>
     </div>
 
-    <!-- KPIs PRINCIPALES -->
+    <!-- KPIs VENTAS -->
     <div class="dash-section-title">Ventas</div>
     <div class="dash-kpi-grid">
-
       <div class="dash-kpi">
         <div class="dash-kpi-accent" style="background:var(--azul);"></div>
         <div class="dash-kpi-label">Ventas Unidad / Niño</div>
         <div class="dash-kpi-value loading" id="kpi-ninos">--</div>
         <div class="dash-kpi-sub">niños inscritos</div>
       </div>
-
       <div class="dash-kpi">
         <div class="dash-kpi-accent" style="background:var(--morado);"></div>
         <div class="dash-kpi-label">Ventas Unidad / Padre</div>
         <div class="dash-kpi-value loading" id="kpi-padres">--</div>
         <div class="dash-kpi-sub">familias inscritas</div>
       </div>
-
       <div class="dash-kpi">
         <div class="dash-kpi-accent" style="background:var(--verde);"></div>
         <div class="dash-kpi-label">Ventas $</div>
         <div class="dash-kpi-value loading" id="kpi-ventas">--</div>
         <div class="dash-kpi-sub">total recaudado</div>
       </div>
-
       <div class="dash-kpi">
         <div class="dash-kpi-accent" style="background:var(--naranja);"></div>
         <div class="dash-kpi-label">Semanas Vendidas</div>
         <div class="dash-kpi-value loading" id="kpi-semanas">--</div>
         <div class="dash-kpi-sub">semanas totales</div>
       </div>
-
       <div class="dash-kpi">
         <div class="dash-kpi-accent" style="background:var(--rojo);"></div>
         <div class="dash-kpi-label">Valor Semana Prom.</div>
         <div class="dash-kpi-value loading" id="kpi-prom">--</div>
         <div class="dash-kpi-sub">precio promedio</div>
       </div>
-
       <div class="dash-kpi">
         <div class="dash-kpi-accent" style="background:var(--negro);"></div>
         <div class="dash-kpi-label">Semanas / Niño</div>
         <div class="dash-kpi-value loading" id="kpi-ratio">--</div>
         <div class="dash-kpi-sub">promedio por niño</div>
       </div>
-
     </div>
 
-    <!-- KPIs ADICIONALES -->
+    <!-- KPIs TICKET Y FAMILIAS -->
     <div class="dash-section-title">Ticket y Familias</div>
     <div class="dash-kpi-grid">
-
       <div class="dash-kpi">
         <div class="dash-kpi-accent" style="background:var(--verde);"></div>
         <div class="dash-kpi-label">Ticket Promedio / Familia</div>
         <div class="dash-kpi-value loading" id="kpi-ticket">--</div>
         <div class="dash-kpi-sub">gasto promedio por familia</div>
       </div>
-
       <div class="dash-kpi">
         <div class="dash-kpi-accent" style="background:var(--morado);"></div>
         <div class="dash-kpi-label">Familias con 2+ Hijos</div>
         <div class="dash-kpi-value loading" id="kpi-familias2">--</div>
         <div class="dash-kpi-sub" id="kpi-familias2-sub">del total de familias</div>
       </div>
-
       <div class="dash-kpi">
         <div class="dash-kpi-accent" style="background:var(--naranja);"></div>
         <div class="dash-kpi-label">Ventas con Cupón</div>
         <div class="dash-kpi-value loading" id="kpi-cupon-pct">--</div>
-        <div class="dash-kpi-sub" id="kpi-cupon-sub">descuento prom. --</div>
+        <div class="dash-kpi-sub" id="kpi-cupon-sub">de ventas con cupón</div>
       </div>
-
     </div>
 
     <!-- COMPARACION -->
@@ -248,13 +300,13 @@
           <div class="dash-comp-year" id="comp-year-ant">2025</div>
           <div class="dash-comp-val" style="color:var(--gris2);" id="comp-2025">--</div>
           <div class="dash-comp-bar-wrap"><div class="dash-comp-bar" id="bar-2025" style="background:var(--gris2);"></div></div>
-          <div style="font-size:11px;color:var(--gris2);">línea base</div>
+          <div style="font-size:10px;color:var(--gris2);">línea base</div>
         </div>
         <div class="dash-comp-item">
           <div class="dash-comp-year" id="comp-year-act">2026</div>
           <div class="dash-comp-val loading" style="color:var(--azul);" id="comp-2026">--</div>
           <div class="dash-comp-bar-wrap"><div class="dash-comp-bar" id="bar-2026" style="background:var(--azul);"></div></div>
-          <div style="font-size:11px;color:var(--gris2);">año actual</div>
+          <div style="font-size:10px;color:var(--gris2);">año actual</div>
         </div>
       </div>
       <div class="dash-diff-box positivo" id="dash-diff-box">
@@ -266,7 +318,7 @@
   </div><!-- /dash-contenido -->
 
   <div class="dash-footer">
-    Veranito — Vida en Arte &nbsp;·&nbsp; Datos actualizados desde Google Sheets en tiempo real &nbsp;·&nbsp; Se refresca cada 5 minutos
+    Veranito — Vida en Arte &nbsp;·&nbsp; Datos en tiempo real desde Google Sheets<br>Se refresca cada 5 minutos
   </div>
 
 </div>
@@ -316,32 +368,30 @@
     var h = String(now.getHours()).padStart(2, '0');
     var m = String(now.getMinutes()).padStart(2, '0');
     var d = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
-    document.getElementById('dash-updated').textContent = 'Última actualización: ' + d + ' ' + h + ':' + m;
+    document.getElementById('dash-updated').textContent = 'Actualizado: ' + d + ' ' + h + ':' + m;
   }
 
   function render(data) {
-    var mes     = data.mes;
-    var ninos   = data.und              || 0;
-    var padres  = data.padres           || 0;
-    var ventas  = data.ventas           || 0;
-    var semanas = data.semanas          || 0;
-    var prom    = data.prom             || 0;
-    var ratio   = data.ratio            || 0;
-    var ticket  = data.ticketFamilia    || 0;
-    var ocupPct = data.pctOcupacion     || 0;
-    var ocupados   = data.totalOcupados  || 0;
-    var capacidad  = data.totalCapacidad || 0;
-    var cuponPct   = data.pctConCupon    || 0;
-    var descProm   = data.descPromedio   || 0;
-    var fam2pct    = data.pctFamilias2hijos || 0;
-    var v2025   = data.v2025            || 0;
-    var diff    = data.diff;
+    var mes      = data.mes;
+    var ninos    = data.und              || 0;
+    var padres   = data.padres           || 0;
+    var ventas   = data.ventas           || 0;
+    var semanas  = data.semanas          || 0;
+    var prom     = data.prom             || 0;
+    var ratio    = data.ratio            || 0;
+    var ticket   = data.ticketFamilia    || 0;
+    var ocupPct  = data.pctOcupacion     || 0;
+    var ocupados  = data.totalOcupados   || 0;
+    var capacidad = data.totalCapacidad  || 0;
+    var cuponPct  = data.pctConCupon     || 0;
+    var descProm  = data.descPromedio    || 0;
+    var fam2pct   = data.pctFamilias2hijos || 0;
+    var v2025    = data.v2025            || 0;
+    var diff     = data.diff;
 
-    var esMesEspecifico = mes !== 0;
-    var nombreMes = mes === 0 ? 'Año 2026' : (NOMBRES_MES[mes] + ' 2026');
-    var nombreMesCorto = mes === 0 ? '2026' : NOMBRES_MES[mes];
+    var nombreMes      = mes === 0 ? 'Año 2026' : (NOMBRES_MES[mes] + ' 2026');
+    var nombreMesCorto = mes === 0 ? '2026'      : NOMBRES_MES[mes];
 
-    // Título
     var spanEl = document.getElementById('dash-mes-nombre');
     spanEl.textContent = nombreMes;
     spanEl.className   = mes === 0 ? 'anual' : '';
@@ -350,56 +400,46 @@
     document.getElementById('comp-year-ant').textContent = nombreMesCorto + ' 2025';
     document.getElementById('comp-year-act').textContent = nombreMesCorto + ' 2026';
 
-    // Sin datos
     var sinDatos = ninos === 0;
     document.getElementById('dash-sin-datos').style.display = sinDatos ? 'block' : 'none';
     document.getElementById('dash-contenido').style.display = sinDatos ? 'none'  : 'block';
     if (sinDatos) { updateTime(); return; }
 
-    // KPIs principales
     setVal('kpi-ninos',   ninos);
     setVal('kpi-padres',  padres);
     setVal('kpi-ventas',  fmt(ventas));
     setVal('kpi-semanas', semanas);
     setVal('kpi-prom',    fmt(prom));
     setVal('kpi-ratio',   ratio.toFixed(2));
-
-    // KPIs adicionales
-    setVal('kpi-ticket',    fmt(ticket));
+    setVal('kpi-ticket',  fmt(ticket));
     setVal('kpi-familias2', fam2pct.toFixed(1) + '%');
-    document.getElementById('kpi-familias2-sub').textContent = 'del total de familias';
-
     setVal('kpi-cupon-pct', cuponPct.toFixed(1) + '%');
     document.getElementById('kpi-cupon-sub').textContent = descProm > 0
       ? 'descuento prom. ' + fmt(descProm)
       : 'de ventas con cupón';
 
-    // Ocupación
     setVal('kpi-ocup-pct', ocupPct.toFixed(1) + '%');
     document.getElementById('kpi-ocup-sub').textContent = ocupados + ' de ' + capacidad + ' cupos vendidos';
     animateBar('bar-ocup', ocupPct);
-
-    // Color barra ocupación según nivel
     var barOcup = document.getElementById('bar-ocup');
-    if (ocupPct >= 80)      barOcup.style.background = 'var(--rojo)';
+    if      (ocupPct >= 80) barOcup.style.background = 'var(--rojo)';
     else if (ocupPct >= 50) barOcup.style.background = 'var(--naranja)';
     else                    barOcup.style.background = 'var(--azul)';
 
-    // Comparación 2025
     if (v2025 > 0 && diff !== null) {
       setVal('comp-2025', fmt(v2025));
       setVal('comp-2026', fmt(ventas));
-      setVal('kpi-diff', (diff >= 0 ? '+' : '') + diff.toFixed(2) + '%');
-      var esPositivo = diff >= 0;
-      document.getElementById('dash-diff-box').className = 'dash-diff-box ' + (esPositivo ? 'positivo' : 'negativo');
-      document.getElementById('kpi-diff').className      = 'dash-diff-val '  + (esPositivo ? 'positivo' : 'negativo');
+      setVal('kpi-diff',  (diff >= 0 ? '+' : '') + diff.toFixed(2) + '%');
+      var esPos = diff >= 0;
+      document.getElementById('dash-diff-box').className = 'dash-diff-box ' + (esPos ? 'positivo' : 'negativo');
+      document.getElementById('kpi-diff').className      = 'dash-diff-val '  + (esPos ? 'positivo' : 'negativo');
       var max = Math.max(v2025, ventas);
       animateBar('bar-2025', (v2025  / max) * 100);
       animateBar('bar-2026', (ventas / max) * 100);
     } else {
       setVal('comp-2025', 'Sin datos');
       setVal('comp-2026', fmt(ventas));
-      setVal('kpi-diff', 'Sin referencia');
+      setVal('kpi-diff',  'Sin referencia');
       document.getElementById('dash-diff-box').className = 'dash-diff-box sin-ref';
       document.getElementById('kpi-diff').className      = 'dash-diff-val sin-ref';
       animateBar('bar-2025', 0);
@@ -425,7 +465,6 @@
     var nav = document.getElementById('dash-nav');
     nav.innerHTML = '';
 
-    // Botones por mes
     meses.forEach(function(m) {
       var btn = document.createElement('button');
       btn.className = 'dash-nav-btn';
@@ -435,14 +474,12 @@
       nav.appendChild(btn);
     });
 
-    // Separador
     if (meses.length > 0) {
       var sep = document.createElement('div');
       sep.className = 'dash-nav-sep';
       nav.appendChild(sep);
     }
 
-    // Botón anual
     var btnAnual = document.createElement('button');
     btnAnual.className = 'dash-nav-btn anual';
     btnAnual.setAttribute('data-mes', '0');
@@ -450,35 +487,26 @@
     btnAnual.addEventListener('click', function() { selectMes(0); });
     nav.appendChild(btnAnual);
 
-    // Seleccionar el primer mes por defecto
     var primerMes = meses.length > 0 ? meses[0] : 0;
     selectMes(primerMes);
   }
 
   function selectMes(mes) {
     mesActual = mes;
-    // Actualizar botones activos
     document.querySelectorAll('.dash-nav-btn').forEach(function(b) { b.classList.remove('active'); });
     var btnActivo = document.querySelector('.dash-nav-btn[data-mes="' + mes + '"]');
     if (btnActivo) btnActivo.classList.add('active');
-
     setLoading();
     load(mes);
-
     if (refreshTimer) clearInterval(refreshTimer);
     refreshTimer = setInterval(function() { load(mesActual); }, 300000);
   }
 
-  // Iniciar — primero cargar meses disponibles
   fetch(API_URL + '?action=meses')
     .then(function(r) { return r.json(); })
-    .then(function(data) {
-      buildNav(data.meses || []);
-    })
+    .then(function(data) { buildNav(data.meses || []); })
     .catch(function() {
       document.getElementById('dash-error').style.display = 'block';
-      document.getElementById('dash-nav').innerHTML = '';
-      // Fallback: mostrar botones fijos
       buildNav([5, 6, 7, 8]);
     });
 
