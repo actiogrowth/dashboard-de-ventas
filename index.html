@@ -21,6 +21,7 @@
   }
   body { font-family: 'Poppins', sans-serif; background: var(--fondo); color: var(--gris1); min-height: 100vh; }
 
+  /* HEADER */
   .dash-header { background: var(--blanco); border-bottom: 1.5px solid var(--gris3); padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   .dash-header-left { display: flex; align-items: center; gap: 14px; }
   .dash-logo { height: 40px; }
@@ -31,13 +32,25 @@
 
   .dash-main { max-width: 1100px; margin: 0 auto; padding: 32px 20px 60px; }
 
-  .dash-mes-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+  /* NAVEGACIÓN DE MESES */
+  .dash-nav { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+  .dash-nav-btn {
+    padding: 8px 20px; border-radius: 10px; font-family: 'Poppins', sans-serif;
+    font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--gris3);
+    background: var(--blanco); color: var(--gris2); transition: all 0.2s;
+  }
+  .dash-nav-btn:hover { border-color: var(--azul); color: var(--azul); }
+  .dash-nav-btn.active { background: var(--azul); color: #fff; border-color: var(--azul); }
+
+  /* MES LABEL */
+  .dash-mes-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
   .dash-mes-label { font-size: 22px; font-weight: 800; color: var(--negro); letter-spacing: -0.02em; }
   .dash-mes-label span { color: var(--azul); }
   .dash-status { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--verde); }
   .dash-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--verde); animation: pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
+  /* KPI GRID */
   .dash-kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
   @media (max-width: 700px) { .dash-kpi-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 420px) { .dash-kpi-grid { grid-template-columns: 1fr; } }
@@ -52,6 +65,13 @@
   .loading { background: var(--gris3); border-radius: 8px; color: transparent !important; animation: shimmer 1.2s infinite; min-width: 80px; display: inline-block; }
   @keyframes shimmer { 0%{opacity:0.5;} 50%{opacity:1;} 100%{opacity:0.5;} }
 
+  /* SIN DATOS */
+  .dash-sin-datos { background: var(--blanco); border-radius: 16px; padding: 48px 24px; border: 1.5px solid var(--gris3); text-align: center; margin-bottom: 24px; display: none; }
+  .dash-sin-datos-icon { font-size: 40px; margin-bottom: 12px; }
+  .dash-sin-datos-title { font-size: 16px; font-weight: 700; color: var(--negro); margin-bottom: 6px; }
+  .dash-sin-datos-sub { font-size: 13px; color: var(--gris2); }
+
+  /* COMPARACION */
   .dash-comp-card { background: var(--blanco); border-radius: 16px; padding: 24px; border: 1.5px solid var(--gris3); margin-bottom: 24px; }
   .dash-comp-title { font-size: 13px; font-weight: 700; color: var(--negro); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px; }
   .dash-comp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -61,9 +81,13 @@
   .dash-comp-val { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
   .dash-comp-bar-wrap { background: var(--gris3); border-radius: 8px; height: 8px; margin: 10px 0 6px; overflow: hidden; }
   .dash-comp-bar { height: 100%; border-radius: 8px; transition: width 1s ease; width: 0%; }
-  .dash-diff-box { background: #f0faf4; border: 1.5px solid #b7e4c7; border-radius: 12px; padding: 14px 20px; text-align: center; margin-top: 16px; }
+  .dash-diff-box { border-radius: 12px; padding: 14px 20px; text-align: center; margin-top: 16px; }
+  .dash-diff-box.positivo { background: #f0faf4; border: 1.5px solid #b7e4c7; }
+  .dash-diff-box.sin-ref  { background: #f5f7fa; border: 1.5px solid var(--gris3); }
   .dash-diff-label { font-size: 12px; color: var(--gris2); font-weight: 500; margin-bottom: 4px; }
-  .dash-diff-val { font-size: 28px; font-weight: 800; color: var(--verde); }
+  .dash-diff-val { font-size: 28px; font-weight: 800; }
+  .dash-diff-val.positivo { color: var(--verde); }
+  .dash-diff-val.sin-ref  { color: var(--gris2); }
 
   .dash-error { background: #FCCDCE; color: var(--rojo); border-radius: 10px; padding: 14px 18px; font-size: 13px; font-weight: 600; margin-bottom: 20px; display: none; }
   .dash-footer { text-align: center; font-size: 11px; color: var(--gris2); margin-top: 40px; }
@@ -84,78 +108,96 @@
 
 <div class="dash-main">
 
+  <!-- NAVEGACIÓN DE MESES -->
+  <div class="dash-nav">
+    <button class="dash-nav-btn active" data-mes="5">Mayo</button>
+    <button class="dash-nav-btn" data-mes="6">Junio</button>
+    <button class="dash-nav-btn" data-mes="7">Julio</button>
+    <button class="dash-nav-btn" data-mes="8">Agosto</button>
+  </div>
+
   <div class="dash-mes-row">
-    <div class="dash-mes-label">Resultados <span>Mayo 2026</span></div>
+    <div class="dash-mes-label">Resultados <span id="dash-mes-nombre">Mayo 2026</span></div>
     <div class="dash-status"><div class="dash-status-dot"></div>Datos en vivo</div>
   </div>
 
   <div class="dash-error" id="dash-error">Error al cargar los datos. Verifica la conexión con Google Sheets.</div>
 
-  <div class="dash-kpi-grid">
-
-    <div class="dash-kpi">
-      <div class="dash-kpi-accent" style="background:var(--azul);"></div>
-      <div class="dash-kpi-label">Ventas Unidad / Niño</div>
-      <div class="dash-kpi-value loading" id="kpi-ninos">--</div>
-      <div class="dash-kpi-sub">niños inscritos</div>
-    </div>
-
-    <div class="dash-kpi">
-      <div class="dash-kpi-accent" style="background:#9B59B6;"></div>
-      <div class="dash-kpi-label">Ventas Unidad / Padre</div>
-      <div class="dash-kpi-value loading" id="kpi-padres">--</div>
-      <div class="dash-kpi-sub">familias inscritas</div>
-    </div>
-
-    <div class="dash-kpi">
-      <div class="dash-kpi-accent" style="background:var(--verde);"></div>
-      <div class="dash-kpi-label">Ventas $</div>
-      <div class="dash-kpi-value loading" id="kpi-ventas">--</div>
-      <div class="dash-kpi-sub">total recaudado</div>
-    </div>
-
-    <div class="dash-kpi">
-      <div class="dash-kpi-accent" style="background:var(--naranja);"></div>
-      <div class="dash-kpi-label">Semanas Vendidas</div>
-      <div class="dash-kpi-value loading" id="kpi-semanas">--</div>
-      <div class="dash-kpi-sub">semanas totales</div>
-    </div>
-
-    <div class="dash-kpi">
-      <div class="dash-kpi-accent" style="background:var(--rojo);"></div>
-      <div class="dash-kpi-label">Valor Semana Prom.</div>
-      <div class="dash-kpi-value loading" id="kpi-prom">--</div>
-      <div class="dash-kpi-sub">precio promedio</div>
-    </div>
-
-    <div class="dash-kpi">
-      <div class="dash-kpi-accent" style="background:var(--negro);"></div>
-      <div class="dash-kpi-label">Semanas / Niño</div>
-      <div class="dash-kpi-value loading" id="kpi-ratio">--</div>
-      <div class="dash-kpi-sub">promedio por niño</div>
-    </div>
-
+  <!-- SIN DATOS -->
+  <div class="dash-sin-datos" id="dash-sin-datos">
+    <div class="dash-sin-datos-icon">📅</div>
+    <div class="dash-sin-datos-title">Sin ventas registradas aún</div>
+    <div class="dash-sin-datos-sub">Las inscripciones para este mes todavía no han comenzado.</div>
   </div>
 
-  <div class="dash-comp-card">
-    <div class="dash-comp-title">Comparación Mayo 2025 vs Mayo 2026</div>
-    <div class="dash-comp-row">
-      <div class="dash-comp-item">
-        <div class="dash-comp-year">Mayo 2025</div>
-        <div class="dash-comp-val" style="color:var(--gris2);">$5,579</div>
-        <div class="dash-comp-bar-wrap"><div class="dash-comp-bar" id="bar-2025" style="background:var(--gris2);"></div></div>
-        <div style="font-size:11px;color:var(--gris2);">línea base</div>
+  <!-- KPIs -->
+  <div id="dash-contenido">
+    <div class="dash-kpi-grid">
+
+      <div class="dash-kpi">
+        <div class="dash-kpi-accent" style="background:var(--azul);"></div>
+        <div class="dash-kpi-label">Ventas Unidad / Niño</div>
+        <div class="dash-kpi-value loading" id="kpi-ninos">--</div>
+        <div class="dash-kpi-sub">niños inscritos</div>
       </div>
-      <div class="dash-comp-item">
-        <div class="dash-comp-year">Mayo 2026</div>
-        <div class="dash-comp-val loading" style="color:var(--azul);" id="comp-2026">--</div>
-        <div class="dash-comp-bar-wrap"><div class="dash-comp-bar" id="bar-2026" style="background:var(--azul);"></div></div>
-        <div style="font-size:11px;color:var(--gris2);">año actual</div>
+
+      <div class="dash-kpi">
+        <div class="dash-kpi-accent" style="background:#9B59B6;"></div>
+        <div class="dash-kpi-label">Ventas Unidad / Padre</div>
+        <div class="dash-kpi-value loading" id="kpi-padres">--</div>
+        <div class="dash-kpi-sub">familias inscritas</div>
       </div>
+
+      <div class="dash-kpi">
+        <div class="dash-kpi-accent" style="background:var(--verde);"></div>
+        <div class="dash-kpi-label">Ventas $</div>
+        <div class="dash-kpi-value loading" id="kpi-ventas">--</div>
+        <div class="dash-kpi-sub">total recaudado</div>
+      </div>
+
+      <div class="dash-kpi">
+        <div class="dash-kpi-accent" style="background:var(--naranja);"></div>
+        <div class="dash-kpi-label">Semanas Vendidas</div>
+        <div class="dash-kpi-value loading" id="kpi-semanas">--</div>
+        <div class="dash-kpi-sub">semanas totales</div>
+      </div>
+
+      <div class="dash-kpi">
+        <div class="dash-kpi-accent" style="background:var(--rojo);"></div>
+        <div class="dash-kpi-label">Valor Semana Prom.</div>
+        <div class="dash-kpi-value loading" id="kpi-prom">--</div>
+        <div class="dash-kpi-sub">precio promedio</div>
+      </div>
+
+      <div class="dash-kpi">
+        <div class="dash-kpi-accent" style="background:var(--negro);"></div>
+        <div class="dash-kpi-label">Semanas / Niño</div>
+        <div class="dash-kpi-value loading" id="kpi-ratio">--</div>
+        <div class="dash-kpi-sub">promedio por niño</div>
+      </div>
+
     </div>
-    <div class="dash-diff-box">
-      <div class="dash-diff-label">Crecimiento vs año anterior</div>
-      <div class="dash-diff-val loading" id="kpi-diff">--</div>
+
+    <div class="dash-comp-card">
+      <div class="dash-comp-title" id="comp-titulo">Comparación 2025 vs 2026</div>
+      <div class="dash-comp-row">
+        <div class="dash-comp-item">
+          <div class="dash-comp-year" id="comp-year-ant">2025</div>
+          <div class="dash-comp-val" style="color:var(--gris2);" id="comp-2025">--</div>
+          <div class="dash-comp-bar-wrap"><div class="dash-comp-bar" id="bar-2025" style="background:var(--gris2);"></div></div>
+          <div style="font-size:11px;color:var(--gris2);">línea base</div>
+        </div>
+        <div class="dash-comp-item">
+          <div class="dash-comp-year" id="comp-year-act">2026</div>
+          <div class="dash-comp-val loading" style="color:var(--azul);" id="comp-2026">--</div>
+          <div class="dash-comp-bar-wrap"><div class="dash-comp-bar" id="bar-2026" style="background:var(--azul);"></div></div>
+          <div style="font-size:11px;color:var(--gris2);">año actual</div>
+        </div>
+      </div>
+      <div class="dash-diff-box positivo" id="dash-diff-box">
+        <div class="dash-diff-label">Crecimiento vs año anterior</div>
+        <div class="dash-diff-val positivo loading" id="kpi-diff">--</div>
+      </div>
     </div>
   </div>
 
@@ -167,8 +209,12 @@
 
 <script>
 (function(){
-  var API_URL     = 'https://script.google.com/macros/s/AKfycbzdXJLXoIi6nT22x6KiGwdbTEOKtHV3TdRnCw0TEaUujo4SFn3MXTppU9V_BarjwIDZHg/exec';
-  var VENTAS_2025 = 5579;
+  var API_URL = 'https://script.google.com/macros/s/AKfycbzdXJLXoIi6nT22x6KiGwdbTEOKtHV3TdRnCw0TEaUujo4SFn3MXTppU9V_BarjwIDZHg/exec';
+
+  var MESES = { 5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto' };
+
+  var mesActual  = 5;
+  var refreshTimer = null;
 
   function fmt(n) {
     return '$' + parseFloat(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -177,6 +223,17 @@
   function setVal(id, val) {
     var el = document.getElementById(id);
     if (el) { el.textContent = val; el.classList.remove('loading'); }
+  }
+
+  function setLoading() {
+    ['kpi-ninos','kpi-padres','kpi-ventas','kpi-semanas','kpi-prom','kpi-ratio','comp-2026','comp-2025','kpi-diff'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) { el.textContent = '--'; el.classList.add('loading'); }
+    });
+    document.getElementById('bar-2025').style.width = '0%';
+    document.getElementById('bar-2026').style.width = '0%';
+    document.getElementById('dash-sin-datos').style.display = 'none';
+    document.getElementById('dash-contenido').style.display = 'block';
   }
 
   function animateBar(id, pct) {
@@ -188,44 +245,69 @@
 
   function updateTime() {
     var now = new Date();
-    var h   = String(now.getHours()).padStart(2, '0');
-    var m   = String(now.getMinutes()).padStart(2, '0');
-    var d   = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
+    var h = String(now.getHours()).padStart(2, '0');
+    var m = String(now.getMinutes()).padStart(2, '0');
+    var d = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
     document.getElementById('dash-updated').textContent = 'Última actualización: ' + d + ' ' + h + ':' + m;
   }
 
   function render(data) {
+    var mes     = data.mes;
     var ninos   = data.und     || 0;
     var padres  = data.padres  || 0;
     var ventas  = data.ventas  || 0;
     var semanas = data.semanas || 0;
-    var prom    = semanas > 0 ? ventas / semanas : 0;
-    var ratio   = ninos   > 0 ? semanas / ninos  : 0;
-    var diff    = VENTAS_2025 > 0 ? ((ventas - VENTAS_2025) / VENTAS_2025) * 100 : 0;
+    var prom    = data.prom    || 0;
+    var ratio   = data.ratio   || 0;
+    var v2025   = data.v2025   || 0;
+    var diff    = data.diff;
+
+    var nombreMes = MESES[mes] || 'Mes';
+
+    document.getElementById('dash-mes-nombre').textContent  = nombreMes + ' 2026';
+    document.getElementById('comp-titulo').textContent      = 'Comparación ' + nombreMes + ' 2025 vs ' + nombreMes + ' 2026';
+    document.getElementById('comp-year-ant').textContent    = nombreMes + ' 2025';
+    document.getElementById('comp-year-act').textContent    = nombreMes + ' 2026';
+
+    // Sin datos
+    var sinDatos = ninos === 0;
+    document.getElementById('dash-sin-datos').style.display = sinDatos ? 'block' : 'none';
+    document.getElementById('dash-contenido').style.display = sinDatos ? 'none'  : 'block';
+
+    if (sinDatos) { updateTime(); return; }
 
     setVal('kpi-ninos',   ninos);
     setVal('kpi-padres',  padres);
     setVal('kpi-ventas',  fmt(ventas));
     setVal('kpi-semanas', semanas);
-    setVal('kpi-prom',    '$' + prom.toFixed(2));
+    setVal('kpi-prom',    fmt(prom));
     setVal('kpi-ratio',   ratio.toFixed(2));
     setVal('comp-2026',   fmt(ventas));
-    setVal('kpi-diff',    (diff >= 0 ? '+' : '') + diff.toFixed(2) + '%');
 
-    var max = Math.max(VENTAS_2025, ventas);
-    animateBar('bar-2025', (VENTAS_2025 / max) * 100);
-    animateBar('bar-2026', (ventas      / max) * 100);
+    if (v2025 > 0 && diff !== null) {
+      setVal('comp-2025', fmt(v2025));
+      setVal('kpi-diff', (diff >= 0 ? '+' : '') + diff.toFixed(2) + '%');
+      document.getElementById('dash-diff-box').className  = 'dash-diff-box positivo';
+      document.getElementById('kpi-diff').className       = 'dash-diff-val positivo';
+      var max = Math.max(v2025, ventas);
+      animateBar('bar-2025', (v2025  / max) * 100);
+      animateBar('bar-2026', (ventas / max) * 100);
+    } else {
+      setVal('comp-2025', 'Sin datos');
+      setVal('kpi-diff', 'Sin referencia');
+      document.getElementById('dash-diff-box').className = 'dash-diff-box sin-ref';
+      document.getElementById('kpi-diff').className      = 'dash-diff-val sin-ref';
+      animateBar('bar-2025', 0);
+      animateBar('bar-2026', 100);
+    }
+
     updateTime();
   }
 
-  function load() {
-    fetch(API_URL + '?action=dashboard')
+  function load(mes) {
+    fetch(API_URL + '?action=dashboard&mes=' + mes)
       .then(function(r) { return r.json(); })
       .then(function(data) {
-        if (data.error) {
-          document.getElementById('dash-error').style.display = 'block';
-          return;
-        }
         document.getElementById('dash-error').style.display = 'none';
         render(data);
       })
@@ -234,8 +316,22 @@
       });
   }
 
-  load();
-  setInterval(load, 300000); // refresca cada 5 minutos
+  // Navegación entre meses
+  document.querySelectorAll('.dash-nav-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.dash-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      mesActual = parseInt(btn.getAttribute('data-mes'));
+      setLoading();
+      load(mesActual);
+      if (refreshTimer) clearInterval(refreshTimer);
+      refreshTimer = setInterval(function() { load(mesActual); }, 300000);
+    });
+  });
+
+  // Carga inicial
+  load(mesActual);
+  refreshTimer = setInterval(function() { load(mesActual); }, 300000);
 })();
 </script>
 </body>
